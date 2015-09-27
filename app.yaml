@@ -5,11 +5,14 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /
+- url: /.*
   script: mnflights.app.app
 
 libraries:
 - name: django
+  version: "latest"
+
+- name: pycrypto
   version: "latest"
 
 - name: webapp2

@@ -5,4 +5,6 @@ from .urls import view_endpoints
 endpoints = []
 endpoints += view_endpoints
 
-app = WSGIApplication(endpoints, debug=True)
+config = {'webapp2_extras.sessions': {'secret_key': 'squidpants'}}
+
+app = WSGIApplication(endpoints, config=config, debug=True)

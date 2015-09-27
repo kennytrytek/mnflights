@@ -1,5 +1,6 @@
-from .base import BaseRequestHandler
+from .base import TemplateRequestHandler
 
 
-class HomeRequestHandler(BaseRequestHandler):
-    pass
+class HomeRequestHandler(TemplateRequestHandler):
+    def get(self):
+        self.render_template('home.html', {'name': 'George'})
