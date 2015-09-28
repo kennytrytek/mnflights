@@ -9,7 +9,7 @@ handlers:
   script: mnflights.app.app
 
 libraries:
-- name: django
+- name: jinja2
   version: "latest"
 
 - name: pycrypto

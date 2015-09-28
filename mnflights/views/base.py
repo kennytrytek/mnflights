@@ -1,8 +1,8 @@
-import os
-
 import webapp2
-from google.appengine.ext.webapp import template
+from jinja2 import Environment, PackageLoader
 from webapp2_extras import sessions
+
+env = Environment(loader=PackageLoader('mnflights', 'templates'))
 
 
 class BaseRequestHandler(webapp2.RequestHandler):
@@ -22,9 +22,8 @@ class BaseRequestHandler(webapp2.RequestHandler):
 
 class TemplateMixin(object):
     def render_template(self, template_file_name, template_values):
-        root_dir = os.path.dirname(os.path.dirname(__file__))
-        path = os.path.join(root_dir, 'templates', template_file_name)
-        self.response.out.write(template.render(path, template_values))
+        template = env.get_template(template_file_name)
+        self.response.out.write(template.render(template_values))
 
 
 class TemplateRequestHandler(BaseRequestHandler, TemplateMixin):

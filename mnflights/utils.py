@@ -26,7 +26,7 @@ class DatastoreBaseCase(TestCase):
     @classmethod
     def _teardown_gae(cls):
         cls.testbed.deactivate()
-        
+
 
 class DatastoreTestCase(DatastoreBaseCase):
     def setUp(self):
