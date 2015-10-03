@@ -1,18 +1,25 @@
 import webapp2
+from google.appengine.ext import ndb
 from jinja2 import Environment, PackageLoader
 from webapp2_extras import sessions
 
 env = Environment(loader=PackageLoader('mnflights', 'templates'))
 
 
-class BaseRequestHandler(webapp2.RequestHandler):
+class UserMixin(object):
+    def get_user(self):
+        return ndb.Key(urlsafe=self.session['user_id']).get()
+
+
+class BaseRequestHandler(webapp2.RequestHandler, UserMixin):
     def dispatch(self):
         self.session_store = sessions.get_store(request=self.request)
         if not self.session.get('session_id'):
-            if (not self.request.path.endswith('/login') and not
-                    (self.request.referer or '').endswith('/login')):
+            if (not self.request.path.endswith(('/login', '/create_account'))
+                    and not (self.request.referer or '').endswith('/login')):
                 self.redirect('/login')
                 return
+
         super(BaseRequestHandler, self).dispatch()
 
     @webapp2.cached_property

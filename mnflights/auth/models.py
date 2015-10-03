@@ -28,12 +28,17 @@ class EncryptionKey(ndb.Model):
 
 class User(ndb.Model):
     _use_cache = False
+    email = ndb.StringProperty(indexed=False)
     name = ndb.StringProperty(indexed=False)
     password_hash = ndb.StringProperty(indexed=False, default='')
 
     @classmethod
-    def create(cls, name, password):
-        return cls(id=name, name=name, password_hash=obfuscate(password)).put()
+    def create(cls, email, name, password):
+        return cls(
+            id=email,
+            email=email,
+            name=name,
+            password_hash=obfuscate(password)).put()
 
 
 class AESCipher(object):
