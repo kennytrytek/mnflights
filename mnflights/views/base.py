@@ -15,8 +15,10 @@ class BaseRequestHandler(webapp2.RequestHandler, UserMixin):
     def dispatch(self):
         self.session_store = sessions.get_store(request=self.request)
         if not self.session.get('session_id'):
-            if (not self.request.path.endswith(('/login', '/create_account'))
-                    and not (self.request.referer or '').endswith('/login')):
+            no_auth = ('/login', '/create_account', '/forgot_password',
+                       '/create_new_password')
+            if (self.request.path not in no_auth and
+                    not (self.request.referer or '').endswith('/login')):
                 self.redirect('/login')
                 return
 
@@ -28,9 +30,14 @@ class BaseRequestHandler(webapp2.RequestHandler, UserMixin):
 
 
 class TemplateMixin(object):
-    def render_template(self, template_file_name, template_values):
+    def render_template(
+            self, template_file_name, template_values, write_response=True):
         template = env.get_template(template_file_name)
-        self.response.out.write(template.render(template_values))
+        rendered = template.render(template_values)
+        if write_response:
+            self.response.out.write(rendered)
+        else:
+            return rendered
 
 
 class TemplateRequestHandler(BaseRequestHandler, TemplateMixin):

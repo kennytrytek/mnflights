@@ -7,6 +7,11 @@
     {% endblock %}
 </head>
 <body>
+    {% if not hide_logout %}
+        <form action="/logout" method="post">
+            <input type="submit" value="Logout">
+        </form>
+    {% endif %}
     {% block body %}
     {% endblock %}
 </body>

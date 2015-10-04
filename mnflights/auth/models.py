@@ -26,6 +26,12 @@ class EncryptionKey(ndb.Model):
         return encryption_key.value
 
 
+class PasswordResetToken(ndb.Model):
+    _use_cache = False
+    token = ndb.StringProperty(indexed=False)
+
+
+
 class User(ndb.Model):
     _use_cache = False
     email = ndb.StringProperty(indexed=False)
