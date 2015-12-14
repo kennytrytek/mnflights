@@ -1,3 +1,4 @@
+from google.appengine.ext import ndb
 from webapp2 import WSGIApplication
 
 from .urls import view_endpoints
@@ -5,7 +6,11 @@ from .urls import view_endpoints
 endpoints = []
 endpoints += view_endpoints
 
+
+class SecretKey(ndb.Model):
+    value = ndb.StringProperty(indexed=False)
+
 config = {'webapp2_extras.sessions': {
-    'secret_key': 'fb2bedbd695a42b7936824400eb40c38'}}
+    'secret_key': ndb.Key('SecretKey', 1).get().value}}
 
 app = WSGIApplication(endpoints, config=config, debug=True)
