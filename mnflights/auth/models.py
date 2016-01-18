@@ -31,7 +31,6 @@ class PasswordResetToken(ndb.Model):
     token = ndb.StringProperty(indexed=False)
 
 
-
 class User(ndb.Model):
     _use_cache = False
     email = ndb.StringProperty(indexed=False)

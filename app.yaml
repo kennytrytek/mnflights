@@ -4,9 +4,8 @@ runtime: python27
 api_version: 1
 threadsafe: true
 
-handlers:
-- url: /.*
-  script: mnflights.app.app
+builtins:
+- remote_api: on
 
 libraries:
 - name: jinja2
@@ -17,3 +16,7 @@ libraries:
 
 - name: webapp2
   version: "latest"
+
+handlers:
+- url: /.*
+  script: mnflights.app.app

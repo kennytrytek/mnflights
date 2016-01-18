@@ -11,6 +11,6 @@ class SecretKey(ndb.Model):
     value = ndb.StringProperty(indexed=False)
 
 config = {'webapp2_extras.sessions': {
-    'secret_key': ndb.Key('SecretKey', 1).get().value}}
+    'secret_key': str(ndb.Key('SecretKey', 1).get().value)}}
 
 app = WSGIApplication(endpoints, config=config, debug=True)

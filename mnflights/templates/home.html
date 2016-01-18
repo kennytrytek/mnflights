@@ -1,5 +1,14 @@
+<!-- /login -->
 {% extends "base.html" %}
 
 {% block body %}
     <p>Hey {{ name }}!</p>
+    <p>Enter scores for this week:</p>
+    <form action="/" method="post">
+        {% for hole in holes %}
+            <label for="hole{{ hole.number }}">Hole {{ hole.number }}, Par {{ hole.par }}:&nbsp;</label>
+            <input type="number" name="hole{{ hole.number }}", value="{{ hole.par }}">
+        {% endfor %}
+        <input type="submit" value="Submit Scores">
+    </form>
 {% endblock %}

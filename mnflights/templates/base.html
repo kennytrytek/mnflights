@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Monday Night Flights</title>
-    {% block head%}
-    {% endblock %}
-</head>
-<body>
-    {% if not hide_logout %}
-        <form action="/logout" method="post">
-            <input type="submit" value="Logout">
-        </form>
-    {% endif %}
-    {% block body %}
-    {% endblock %}
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Monday Night Flights</title>
+        {% block head%}
+        {% endblock %}
+    </head>
+    <body>
+        {% if not hide_logout %}
+            <form action="/logout" method="post">
+                <input type="submit" value="Logout">
+            </form>
+        {% endif %}
+        {% block body %}
+        {% endblock %}
+    </body>
 </html>
